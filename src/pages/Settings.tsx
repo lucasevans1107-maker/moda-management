@@ -186,14 +186,14 @@ export default function Settings() {
         danger
       />
 
-      <h1 className="text-2xl font-semibold text-stone-900 mb-6">Settings & Documentation</h1>
+      <h1 className="text-2xl font-semibold text-slate-100 mb-6">Settings & Documentation</h1>
 
-      <div className="flex gap-1 mb-6 bg-stone-100 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 mb-6 bg-slate-800 rounded-lg p-1 w-fit">
         {tabs.map((t) => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${tab === t.key ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-700'}`}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${tab === t.key ? 'bg-slate-900 text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
           >
             {t.label}
           </button>
@@ -203,28 +203,28 @@ export default function Settings() {
       {/* ── Business Policies ── */}
       {tab === 'policies' && (
         <div className="space-y-6">
-          <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
-            <div className="px-5 py-4 border-b border-stone-100">
-              <h2 className="text-sm font-semibold text-stone-700">Policy Status</h2>
-              <p className="text-xs text-stone-400 mt-0.5">Source: Moda Management ONE-PAGER (VISION 2024). Provisional — requires Moda confirmation.</p>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-800">
+              <h2 className="text-sm font-semibold text-slate-200">Policy Status</h2>
+              <p className="text-xs text-slate-400 mt-0.5">Source: Moda Management ONE-PAGER (VISION 2024). Provisional — requires Moda confirmation.</p>
             </div>
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-stone-50 border-b border-stone-100">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">Policy Item</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">Value / Detail</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">Status</th>
+                <tr className="bg-slate-950 border-b border-slate-800">
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Policy Item</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Value / Detail</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-slate-800">
                 {POLICIES.map((p) => (
                   <tr key={p.item}>
-                    <td className="px-4 py-3 font-medium text-stone-700">{p.item}</td>
-                    <td className="px-4 py-3 text-stone-500 text-xs leading-relaxed max-w-xs">{p.value}</td>
+                    <td className="px-4 py-3 font-medium text-slate-200">{p.item}</td>
+                    <td className="px-4 py-3 text-slate-400 text-xs leading-relaxed max-w-xs">{p.value}</td>
                     <td className="px-4 py-3">
-                      {p.status === 'confirmed' && <span className="bg-green-50 text-green-700 border border-green-200 text-xs px-2 py-0.5 rounded-full">Confirmed</span>}
-                      {p.status === 'needs_confirmation' && <span className="bg-amber-50 text-amber-700 border border-amber-200 text-xs px-2 py-0.5 rounded-full">Needs Confirmation</span>}
-                      {p.status === 'flagged' && <span className="bg-red-50 text-red-700 border border-red-200 text-xs px-2 py-0.5 rounded-full">Flagged</span>}
+                      {p.status === 'confirmed' && <span className="bg-green-950 text-green-300 border border-green-800 text-xs px-2 py-0.5 rounded-full">Confirmed</span>}
+                      {p.status === 'needs_confirmation' && <span className="bg-amber-950 text-amber-300 border border-amber-800 text-xs px-2 py-0.5 rounded-full">Needs Confirmation</span>}
+                      {p.status === 'flagged' && <span className="bg-red-950 text-red-300 border border-red-800 text-xs px-2 py-0.5 rounded-full">Flagged</span>}
                     </td>
                   </tr>
                 ))}
@@ -232,25 +232,25 @@ export default function Settings() {
             </table>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-stone-700 mb-3">Concierge Billing Examples</h3>
-            <p className="text-xs text-stone-400 mb-3 italic">Provisional estimates per draft policy. 1-hour minimum, then 15-min increments. $125/hr.</p>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-200 mb-3">Concierge Billing Examples</h3>
+            <p className="text-xs text-slate-400 mb-3 italic">Provisional estimates per draft policy. 1-hour minimum, then 15-min increments. $125/hr.</p>
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-stone-50 rounded">
-                  <th className="text-left px-3 py-2 text-xs font-semibold text-stone-400">Actual Time</th>
-                  <th className="text-left px-3 py-2 text-xs font-semibold text-stone-400">Billable Time</th>
-                  <th className="text-left px-3 py-2 text-xs font-semibold text-stone-400">Est. Charge</th>
-                  <th className="text-left px-3 py-2 text-xs font-semibold text-stone-400">Breakdown</th>
+                <tr className="bg-slate-950 rounded">
+                  <th className="text-left px-3 py-2 text-xs font-semibold text-slate-400">Actual Time</th>
+                  <th className="text-left px-3 py-2 text-xs font-semibold text-slate-400">Billable Time</th>
+                  <th className="text-left px-3 py-2 text-xs font-semibold text-slate-400">Est. Charge</th>
+                  <th className="text-left px-3 py-2 text-xs font-semibold text-slate-400">Breakdown</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-slate-800">
                 {conciergeExamples.map((ex) => (
                   <tr key={ex.actual}>
-                    <td className="px-3 py-2.5 text-stone-700">{ex.actual} min</td>
-                    <td className="px-3 py-2.5 text-stone-700 font-medium">{ex.billable} min</td>
-                    <td className="px-3 py-2.5 text-stone-800 font-semibold">{formatCurrency(ex.charge)}</td>
-                    <td className="px-3 py-2.5 text-stone-400 text-xs">{ex.breakdown}</td>
+                    <td className="px-3 py-2.5 text-slate-200">{ex.actual} min</td>
+                    <td className="px-3 py-2.5 text-slate-200 font-medium">{ex.billable} min</td>
+                    <td className="px-3 py-2.5 text-slate-100 font-semibold">{formatCurrency(ex.charge)}</td>
+                    <td className="px-3 py-2.5 text-slate-400 text-xs">{ex.breakdown}</td>
                   </tr>
                 ))}
               </tbody>
@@ -262,29 +262,29 @@ export default function Settings() {
       {/* ── Integration Docs ── */}
       {tab === 'integration' && (
         <div className="space-y-6">
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-700">
-            <strong>Architecture note:</strong> Browser localStorage cannot receive updates from n8n directly. A server-side adapter is required. State any integration through: Voice platform → authenticated server / n8n workflow → shared backend records → dashboard. The integration adapter in <code className="bg-amber-100 px-1 rounded">src/integrations/adapter.ts</code> is a stub for this standalone demo.
+          <div className="bg-amber-950 border border-amber-800 rounded-lg p-4 text-sm text-amber-300">
+            <strong>Architecture note:</strong> Browser localStorage cannot receive updates from n8n directly. A server-side adapter is required. State any integration through: Voice platform → authenticated server / n8n workflow → shared backend records → dashboard. The integration adapter in <code className="bg-amber-950 px-1 rounded">src/integrations/adapter.ts</code> is a stub for this standalone demo.
           </div>
           {CONTRACTS.map((c) => (
-            <div key={c.name} className="bg-white border border-stone-200 rounded-xl overflow-hidden">
-              <div className="px-5 py-4 border-b border-stone-100 flex items-start justify-between">
+            <div key={c.name} className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+              <div className="px-5 py-4 border-b border-slate-800 flex items-start justify-between">
                 <div>
-                  <code className="text-sm font-semibold text-stone-800">{c.name}</code>
-                  <p className="text-xs text-stone-400 mt-0.5">{c.description}</p>
+                  <code className="text-sm font-semibold text-slate-100">{c.name}</code>
+                  <p className="text-xs text-slate-400 mt-0.5">{c.description}</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-0">
-                <div className="p-5 border-r border-stone-100">
-                  <p className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Request</p>
-                  <pre className="text-xs text-stone-700 bg-stone-50 rounded-lg p-3 overflow-auto leading-relaxed">{JSON.stringify(c.request, null, 2)}</pre>
+                <div className="p-5 border-r border-slate-800">
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Request</p>
+                  <pre className="text-xs text-slate-200 bg-slate-950 rounded-lg p-3 overflow-auto leading-relaxed">{JSON.stringify(c.request, null, 2)}</pre>
                 </div>
                 <div className="p-5">
-                  <p className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-2">Response</p>
-                  <pre className="text-xs text-stone-700 bg-stone-50 rounded-lg p-3 overflow-auto leading-relaxed">{JSON.stringify(c.response, null, 2)}</pre>
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Response</p>
+                  <pre className="text-xs text-slate-200 bg-slate-950 rounded-lg p-3 overflow-auto leading-relaxed">{JSON.stringify(c.response, null, 2)}</pre>
                 </div>
               </div>
               {c.notes && (
-                <div className="px-5 py-3 bg-stone-50 border-t border-stone-100 text-xs text-stone-500">
+                <div className="px-5 py-3 bg-slate-950 border-t border-slate-800 text-xs text-slate-400">
                   <strong>Note:</strong> {c.notes}
                 </div>
               )}
@@ -296,39 +296,39 @@ export default function Settings() {
       {/* ── Demo Info ── */}
       {tab === 'demo' && (
         <div className="space-y-6">
-          <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
-            <div className="px-5 py-4 border-b border-stone-100">
-              <h2 className="text-sm font-semibold text-stone-700">Simulated vs. Connected</h2>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-800">
+              <h2 className="text-sm font-semibold text-slate-200">Simulated vs. Connected</h2>
             </div>
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-stone-50 border-b border-stone-100">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">Feature</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">Demo State</th>
+                <tr className="bg-slate-950 border-b border-slate-800">
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Feature</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Demo State</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-slate-800">
                 {SIMULATED.map((s) => (
                   <tr key={s.feature}>
-                    <td className="px-4 py-3 font-medium text-stone-700">{s.feature}</td>
-                    <td className="px-4 py-3 text-stone-500 text-xs">{s.state}</td>
+                    <td className="px-4 py-3 font-medium text-slate-200">{s.feature}</td>
+                    <td className="px-4 py-3 text-slate-400 text-xs">{s.state}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-stone-700 mb-3">Local Persistence</h3>
-            <p className="text-sm text-stone-600 mb-2">
-              All data is stored in <code className="bg-stone-100 px-1 rounded text-xs">localStorage</code> under the key <code className="bg-stone-100 px-1 rounded text-xs">moda-demo-storage</code>. Changes persist across page refreshes. Use Reset Demo to restore original seed data.
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-200 mb-3">Local Persistence</h3>
+            <p className="text-sm text-slate-300 mb-2">
+              All data is stored in <code className="bg-slate-800 px-1 rounded text-xs">localStorage</code> under the key <code className="bg-slate-800 px-1 rounded text-xs">moda-demo-storage</code>. Changes persist across page refreshes. Use Reset Demo to restore original seed data.
             </p>
-            <p className="text-xs text-stone-400 italic">localStorage is not production data storage. It is not encrypted, not shared across devices, and is accessible to anyone with browser access. This is a demo only.</p>
+            <p className="text-xs text-slate-400 italic">localStorage is not production data storage. It is not encrypted, not shared across devices, and is accessible to anyone with browser access. This is a demo only.</p>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-stone-700 mb-3">Run Locally</h3>
-            <pre className="bg-stone-50 rounded-lg p-4 text-xs text-stone-700">
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-200 mb-3">Run Locally</h3>
+            <pre className="bg-slate-950 rounded-lg p-4 text-xs text-slate-200">
 {`cd /path/to/moda
 npm install
 npm run dev
@@ -337,22 +337,22 @@ npm run dev
             </pre>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-stone-700 mb-4">5-Minute Demo Script</h3>
-            <ol className="space-y-3 text-sm text-stone-600">
-              <li className="flex gap-2"><span className="font-semibold text-stone-800 flex-shrink-0">1.</span>Open <strong>Overview</strong> — point out active requests, overdue indicator, immediate danger banner.</li>
-              <li className="flex gap-2"><span className="font-semibold text-stone-800 flex-shrink-0">2.</span>Open <strong>Receptionist</strong> — simulate Claire Ashworth calling about the AC. Walk through: lookup → verify → confirm property → issue → follow-up → urgency (urgent) → create request.</li>
-              <li className="flex gap-2"><span className="font-semibold text-stone-800 flex-shrink-0">3.</span>Navigate to the <strong>created request</strong> — show response deadline, vendor recommendation (Arctic Comfort with rationale), assign vendor, prepare outreach draft.</li>
-              <li className="flex gap-2"><span className="font-semibold text-stone-800 flex-shrink-0">4.</span>Add an <strong>estimate</strong>, simulate homeowner approval, request appointment window, confirm appointment. Show that "requested" vs "confirmed" are distinct.</li>
-              <li className="flex gap-2"><span className="font-semibold text-stone-800 flex-shrink-0">5.</span>Switch to <strong>Homeowner view</strong> — show limited information: no internal notes, no vendor discussion. Show approved estimate and confirmed appointment.</li>
-              <li className="flex gap-2"><span className="font-semibold text-stone-800 flex-shrink-0">6.</span>Open <strong>Settings → Business Policies</strong> — highlight flagged items (Base inspection frequency, overage rates) requiring Moda confirmation.</li>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-200 mb-4">5-Minute Demo Script</h3>
+            <ol className="space-y-3 text-sm text-slate-300">
+              <li className="flex gap-2"><span className="font-semibold text-slate-100 flex-shrink-0">1.</span>Open <strong>Overview</strong> — point out active requests, overdue indicator, immediate danger banner.</li>
+              <li className="flex gap-2"><span className="font-semibold text-slate-100 flex-shrink-0">2.</span>Open <strong>Receptionist</strong> — simulate Claire Ashworth calling about the AC. Walk through: lookup → verify → confirm property → issue → follow-up → urgency (urgent) → create request.</li>
+              <li className="flex gap-2"><span className="font-semibold text-slate-100 flex-shrink-0">3.</span>Navigate to the <strong>created request</strong> — show response deadline, vendor recommendation (Arctic Comfort with rationale), assign vendor, prepare outreach draft.</li>
+              <li className="flex gap-2"><span className="font-semibold text-slate-100 flex-shrink-0">4.</span>Add an <strong>estimate</strong>, simulate homeowner approval, request appointment window, confirm appointment. Show that "requested" vs "confirmed" are distinct.</li>
+              <li className="flex gap-2"><span className="font-semibold text-slate-100 flex-shrink-0">5.</span>Switch to <strong>Homeowner view</strong> — show limited information: no internal notes, no vendor discussion. Show approved estimate and confirmed appointment.</li>
+              <li className="flex gap-2"><span className="font-semibold text-slate-100 flex-shrink-0">6.</span>Open <strong>Settings → Business Policies</strong> — highlight flagged items (Base inspection frequency, overage rates) requiring Moda confirmation.</li>
             </ol>
           </div>
 
-          <div className="bg-white border border-stone-200 rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-stone-700 mb-3">Reset Demo Data</h3>
-            <p className="text-sm text-stone-500 mb-4">Restores all fictional seed data and clears session changes.</p>
-            {resetDone && <p className="text-green-600 text-sm mb-3">Demo data has been reset.</p>}
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-200 mb-3">Reset Demo Data</h3>
+            <p className="text-sm text-slate-400 mb-4">Restores all fictional seed data and clears session changes.</p>
+            {resetDone && <p className="text-green-300 text-sm mb-3">Demo data has been reset.</p>}
             <button
               onClick={() => { setResetDone(false); setShowReset(true); }}
               className="px-4 py-2.5 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"

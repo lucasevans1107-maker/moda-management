@@ -123,3 +123,19 @@ The integration adapter in `src/integrations/contracts.ts` documents JSON contra
 - [x] Homeowner preview excludes internal information
 - [x] Refresh preserves demo (localStorage persistence)
 - [x] Reset Demo works with confirmation dialog
+
+## Client CRM
+
+The dark dashboard includes total clients, monthly services, active requests, overdue responses,
+scheduled services this week, and completions this month. Monthly services count completed
+requests by completion date and other confirmed requests by appointment date, using Central
+Time; canceled requests are excluded. One request is counted once.
+
+Clients supports searching names, emails, phone numbers, and property addresses. Each client
+profile links properties and service history, lists preferred and assigned providers, shows
+the next future confirmed appointment, and calculates tenure from `memberSince`.
+Last contact is the latest explicit contact record, human response, or homeowner activity;
+internal workflow and vendor events do not count. “Record contact now” stores a timestamp
+locally and does not send a message. Missing contact and appointment data are labeled.
+
+These features use the existing browser-persisted demo records, not a live CRM backend.

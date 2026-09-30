@@ -23,17 +23,17 @@ export default function Properties() {
 
   return (
     <div className="p-8 max-w-6xl">
-      <h1 className="text-2xl font-semibold text-stone-900 mb-6">Properties</h1>
-      <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
+      <h1 className="text-2xl font-semibold text-slate-100 mb-6">Properties</h1>
+      <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-stone-50 border-b border-stone-100">
+            <tr className="bg-slate-950 border-b border-slate-800">
               {['Address', 'Homeowner', 'Membership', 'Coordinator', 'Active Requests'].map((h) => (
-                <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">{h}</th>
+                <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">{h}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-100">
+          <tbody className="divide-y divide-slate-800">
             {properties.map((p) => {
               const owner = getHomeowner(p.homeownerId);
               const coord = getCoordinator(p.assignedCoordinatorId);
@@ -42,18 +42,18 @@ export default function Properties() {
                 <tr
                   key={p.id}
                   onClick={() => navigate(`/properties/${p.id}`)}
-                  className="cursor-pointer hover:bg-stone-50 transition-colors"
+                  className="cursor-pointer hover:bg-slate-950 transition-colors"
                 >
                   <td className="px-4 py-3">
-                    <p className="font-medium text-stone-800">{p.address.street}</p>
-                    <p className="text-stone-400 text-xs">{p.address.city}, {p.address.state} {p.address.zip}</p>
+                    <p className="font-medium text-slate-100">{p.address.street}</p>
+                    <p className="text-slate-400 text-xs">{p.address.city}, {p.address.state} {p.address.zip}</p>
                   </td>
-                  <td className="px-4 py-3 text-stone-700">{owner?.name ?? '—'}</td>
+                  <td className="px-4 py-3 text-slate-200">{owner?.name ?? '—'}</td>
                   <td className="px-4 py-3"><MembershipBadge tier={p.membership} /></td>
-                  <td className="px-4 py-3 text-stone-500 text-xs">{coord?.name ?? '—'}</td>
+                  <td className="px-4 py-3 text-slate-400 text-xs">{coord?.name ?? '—'}</td>
                   <td className="px-4 py-3">
                     {activeCount > 0 ? (
-                      <span className="bg-amber-50 text-amber-700 border border-amber-200 text-xs px-2 py-0.5 rounded-full font-medium">{activeCount}</span>
+                      <span className="bg-amber-950 text-amber-300 border border-amber-800 text-xs px-2 py-0.5 rounded-full font-medium">{activeCount}</span>
                     ) : (
                       <span className="text-stone-300 text-xs">—</span>
                     )}
