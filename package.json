@@ -11,6 +11,8 @@
     "test": "node tests/crm.test.mjs"
   },
   "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/libre-baskerville": "^5.3.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
     "date-fns-tz": "^3.2.0",

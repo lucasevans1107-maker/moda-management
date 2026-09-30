@@ -1,7 +1,12 @@
-# Moda Management — Prototype
+# Moda Management — Warm Atelier
 
 Residential home-management and concierge service operations dashboard.
-Dark CRM prototype with client profiles and a receptionist activity center.
+Warm Atelier CRM with client profiles and a receptionist activity center, plus a separate public website.
+
+- **CRM:** repository root; existing workflows and localStorage retained.
+- **Public website:** `website/`; run `npm ci --prefix website` and `npm run dev --prefix website`.
+- **Vercel setup:** [docs/VERCEL.md](docs/VERCEL.md). Import the repo a second time with Root Directory `website` for the public project.
+- **Design system:** [docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md).
 
 ## Quick Start
 
