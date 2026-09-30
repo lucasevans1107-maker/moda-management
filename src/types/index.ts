@@ -297,7 +297,22 @@ export interface CreateServiceRequestResponse {
 
 // ─── Store Shape ──────────────────────────────────────────────────────────────
 
+export interface Communication {
+  id: string;
+  homeownerId?: string;
+  requestId?: string;
+  channel: 'phone' | 'text' | 'email';
+  direction: 'inbound' | 'outbound';
+  occurredAt: string;
+  contactName: string;
+  contactAddress: string;
+  summary: string;
+  outcome: 'handled' | 'needs_follow_up';
+  source: 'demo' | 'integration';
+}
+
 export interface AppState {
+  communications: Communication[];
   homeowners: Homeowner[];
   properties: Property[];
   vendors: Vendor[];

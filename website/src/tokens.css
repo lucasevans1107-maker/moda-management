@@ -1,0 +1,16 @@
+/* Warm Atelier: shared by the public site and CRM. */
+:root {
+  --moda-canvas: #211c19;
+  --moda-surface: #27211d;
+  --moda-raised: #302823;
+  --moda-ink: #f1e8da;
+  --moda-muted: #bdb4a9;
+  --moda-accent: #c9ae88;
+  --moda-accent-hover: #ddc6a5;
+  --moda-line: #51463b;
+  --moda-control-line: #8b7965;
+  --moda-olive: #a9b292;
+  --moda-font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --moda-font-display: 'Libre Baskerville', Georgia, serif;
+  --moda-radius: 6px;
+}

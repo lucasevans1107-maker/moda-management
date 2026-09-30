@@ -13,6 +13,7 @@ import type {
   AppointmentConfirmation,
 } from '../types';
 import { VALID_TRANSITIONS } from '../types';
+import { intakeCommunications } from '../lib/crm';
 import { buildSeedState } from '../data/seed';
 
 function generateId(prefix: string): string {
@@ -96,7 +97,7 @@ export const useStore = create<Store>()(
             },
           ],
         };
-        set((state) => ({ requests: [...state.requests, newReq] }));
+        set((state) => ({ requests: [...state.requests, newReq], communications: [...state.communications, ...intakeCommunications([newReq], state.homeowners)] }));
         return newReq;
       },
 
@@ -145,6 +146,7 @@ export const useStore = create<Store>()(
           details: 'Response deadline satisfied.',
         };
         set((state) => ({
+          communications: state.communications.map(c => c.requestId === requestId ? { ...c, outcome: 'handled' as const } : c),
           requests: state.requests.map((r) =>
             r.id === requestId
               ? { ...r, humanRespondedAt: now, activity: [...r.activity, actEntry] }
@@ -380,6 +382,12 @@ export const useStore = create<Store>()(
     {
       name: 'moda-demo-storage',
       version: 1,
+      // Preserve all saved requests and memberships while upgrading older demos.
+      merge: (persisted, current) => {
+        const saved = (persisted ?? {}) as Partial<AppState>;
+        const merged = { ...current, ...saved };
+        return { ...merged, communications: saved.communications ?? intakeCommunications(merged.requests, merged.homeowners) };
+      },
     }
   )
 );

@@ -3,16 +3,16 @@ import { STATUS_LABELS } from '../types';
 import clsx from 'clsx';
 
 const STATUS_CLASSES: Record<RequestStatus, string> = {
-  new: 'bg-slate-800 text-slate-200',
+  new: 'bg-raised text-ink',
   needs_review: 'bg-amber-950 text-amber-300 border border-amber-800',
   awaiting_estimate: 'bg-blue-950 text-blue-300 border border-blue-800',
   awaiting_homeowner_approval: 'bg-purple-950 text-purple-300 border border-purple-800',
-  ready_to_coordinate: 'bg-teal-50 text-teal-700 border border-teal-200',
-  scheduling_requested: 'bg-indigo-50 text-indigo-700 border border-indigo-200',
-  scheduled: 'bg-indigo-100 text-indigo-800',
+  ready_to_coordinate: 'bg-raised text-olive border border-line',
+  scheduling_requested: 'bg-raised text-accent border border-line',
+  scheduled: 'bg-raised text-accent',
   in_progress: 'bg-amber-950 text-amber-300',
   completed: 'bg-green-950 text-green-300 border border-green-800',
-  canceled: 'bg-slate-800 text-slate-400',
+  canceled: 'bg-raised text-muted',
 };
 
 interface Props {
