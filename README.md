@@ -1,7 +1,7 @@
 # Moda Management — Prototype
 
 Residential home-management and concierge service operations dashboard.
-Built for demonstration on **October 1, 2024**.
+Dark CRM prototype with client profiles and a receptionist activity center.
 
 ## Quick Start
 
@@ -47,12 +47,11 @@ Open http://localhost:5173
   - Appointment requested → vendor explicitly confirmed (separate steps)
   - Service completed, notes recorded, history updated
 
-### 3. Receptionist Simulator (~1 min)
-- Click Receptionist.
-- Walk through guided intake as Claire Ashworth (Premium member).
-- Show identity verification step (simulated, explicitly labeled).
-- Submit a new issue — watch it appear on the dashboard instantly.
-- Then try the "unknown caller" path — show that property history is never exposed before verification.
+### 3. Clients and receptionist activity (~1 min)
+- Open Clients, search by name/email/phone, then open a client profile.
+- Review last recorded contact, membership tenure, preferred/assigned providers, next confirmed service, and service/contact history.
+- Open Receptionist for call, SMS, email, and follow-up counts. Filter by channel, period, or contact and expand an entry for its summary and linked request audit trail.
+- The phone number is explicitly **not connected**. This page monitors activity; it is not an intake simulator.
 
 ### 4. Unverified inquiry and urgency escalation (~30 sec)
 - Show MM-2024-INQR-009 — unknown caller, water dripping, no property match, routed for human review.
@@ -109,7 +108,7 @@ The integration adapter in `src/integrations/contracts.ts` documents JSON contra
 
 ## Acceptance Criteria
 
-- [x] Simulated intake creates a persisted request (visible after refresh)
+- [x] Request intake records persist alongside communication history
 - [x] Correct property and history are linked
 - [x] Unverified callers cannot access property history
 - [x] Vendor recommendations explain their basis (trade, area, prior work, preference)
@@ -123,3 +122,14 @@ The integration adapter in `src/integrations/contracts.ts` documents JSON contra
 - [x] Homeowner preview excludes internal information
 - [x] Refresh preserves demo (localStorage persistence)
 - [x] Reset Demo works with confirmation dialog
+
+
+## CRM data behavior
+
+- Clients are the existing homeowner records; providers include property preferences and approved request assignments, never unapproved suggestions.
+- Contact history is a separate typed communication collection. Older browser data is upgraded without resetting requests; only recorded phone/text/email intakes become initial contacts. Internal activity and unsent drafts are not client contacts.
+- Receptionist metrics count logged communications, not inferred call volume. No durations, recordings, or delivery receipts are fabricated. Email has an honest empty state until email records exist.
+- Monthly services count each non-canceled request once, by completion date for completed work or confirmed appointment date for scheduled work. CT month boundaries are used.
+- Upcoming service excludes canceled/completed work, tentative windows, and past appointments. Membership tenure uses calendar months from memberSince.
+- New/reset demo service timestamps are shifted relative to today. Existing saved timelines remain unchanged; select All time to inspect older communications.
+- Live telephone, SMS, and email ingestion still needs an authenticated backend/provider integration; no phone number was provisioned by this change.

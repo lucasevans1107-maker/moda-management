@@ -19,6 +19,8 @@ export function formatDate(iso: string): string {
   try {
     const date = parseISO(iso);
     if (!isValid(date)) return iso;
+    // Calendar dates (membership dates) are not UTC instants.
+    if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return format(date, 'MMM d, yyyy');
     const zoned = toZonedTime(date, TZ);
     return format(zoned, 'MMM d, yyyy');
   } catch {

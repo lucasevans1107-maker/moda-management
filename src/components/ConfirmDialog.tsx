@@ -27,13 +27,13 @@ export default function ConfirmDialog({
         className="absolute inset-0 bg-black/30 backdrop-blur-sm"
         onClick={onCancel}
       />
-      <div className="relative bg-white rounded-xl shadow-xl border border-stone-200 w-full max-w-md mx-4 p-6">
-        <h3 className="text-lg font-semibold text-stone-900 mb-2">{title}</h3>
-        <p className="text-stone-600 text-sm mb-6">{message}</p>
+      <div className="relative bg-surface rounded-xl shadow-xl border border-line w-full max-w-md mx-4 p-6">
+        <h3 className="text-lg font-semibold text-ink mb-2">{title}</h3>
+        <p className="text-muted text-sm mb-6">{message}</p>
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors"
+            className="px-4 py-2 text-sm font-medium text-ink bg-raised hover:bg-raised rounded-lg transition-colors"
           >
             Cancel
           </button>

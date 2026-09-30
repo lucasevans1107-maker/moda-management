@@ -12,8 +12,8 @@ export default function MembershipBadge({ tier, className }: Props) {
       className={clsx(
         'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
         tier === 'premium'
-          ? 'bg-amber-50 text-amber-800 border border-amber-200'
-          : 'bg-stone-100 text-stone-700',
+          ? 'bg-amber-950 text-amber-300 border border-amber-800'
+          : 'bg-raised text-ink',
         className
       )}
     >

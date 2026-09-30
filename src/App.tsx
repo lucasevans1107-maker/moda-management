@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import Clients from './pages/Clients';
+import ClientDetail from './pages/ClientDetail';
 import Overview from './pages/Overview';
+import NewRequest from './pages/NewRequest';
 import Requests from './pages/Requests';
 import RequestDetail from './pages/RequestDetail';
 import Properties from './pages/Properties';
@@ -16,7 +19,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Overview />} />
+          <Route path="clients" element={<Clients />} />
+          <Route path="clients/:id" element={<ClientDetail />} />
           <Route path="requests" element={<Requests />} />
+          <Route path="requests/new" element={<NewRequest />} />
           <Route path="requests/:id" element={<RequestDetail />} />
           <Route path="properties" element={<Properties />} />
           <Route path="properties/:id" element={<PropertyDetail />} />

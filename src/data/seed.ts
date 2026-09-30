@@ -1,3 +1,4 @@
+import { intakeCommunications } from '../lib/crm';
 import type {
   Homeowner,
   Property,
@@ -633,11 +634,19 @@ export const MEMBERSHIP_CONFIGS: MembershipConfig[] = [
 // ─── Full seed state ──────────────────────────────────────────────────────────
 
 export function buildSeedState(): Omit<AppState, 'demoRole' | 'demoHomeownerId' | 'lastResetAt'> {
+  // Keep the fictional service timeline useful for a demo opened on any date.
+  // Existing persisted data is never shifted.
+  const offset = Date.now() - new Date('2024-07-22T21:00:00Z').getTime();
+  const requests: ServiceRequest[] = JSON.parse(JSON.stringify(REQUESTS), (_key, value) =>
+    typeof value === 'string' && /^2024-07-\d{2}T/.test(value)
+      ? new Date(new Date(value).getTime() + offset).toISOString() : value
+  );
   return {
+    communications: intakeCommunications(requests, HOMEOWNERS),
     homeowners: HOMEOWNERS,
     properties: PROPERTIES,
     vendors: VENDORS,
-    requests: REQUESTS,
+    requests,
     handymanEntries: HANDYMAN_ENTRIES,
     conciergeEntries: CONCIERGE_ENTRIES,
     coordinators: COORDINATORS,

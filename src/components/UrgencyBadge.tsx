@@ -3,9 +3,9 @@ import { URGENCY_LABELS } from '../types';
 import clsx from 'clsx';
 
 const URGENCY_CLASSES: Record<UrgencyLevel, string> = {
-  routine: 'bg-stone-100 text-stone-600',
-  urgent: 'bg-orange-50 text-orange-700 border border-orange-200',
-  immediate_danger: 'bg-red-100 text-red-800 font-semibold',
+  routine: 'bg-raised text-muted',
+  urgent: 'bg-orange-950 text-orange-300 border border-orange-800',
+  immediate_danger: 'bg-red-950 text-red-300 font-semibold',
 };
 
 interface Props {
