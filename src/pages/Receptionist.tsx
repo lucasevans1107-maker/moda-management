@@ -70,13 +70,13 @@ function StepIndicator({ current, steps }: { current: Step; steps: Step[] }) {
         <div key={s} className="flex items-center gap-1">
           <div className={clsx(
             'w-2 h-2 rounded-full',
-            i < idx ? 'bg-green-500' : i === idx ? 'bg-stone-800' : 'bg-stone-200'
+            i < idx ? 'bg-green-500' : i === idx ? 'bg-indigo-600' : 'bg-stone-200'
           )} />
           {i < steps.length - 1 && <div className="w-6 h-px bg-stone-200" />}
         </div>
       ))}
       {STEP_LABELS[current] && (
-        <span className="ml-3 text-xs text-stone-500">{STEP_LABELS[current]}</span>
+        <span className="ml-3 text-xs text-slate-400">{STEP_LABELS[current]}</span>
       )}
     </div>
   );
@@ -199,25 +199,25 @@ export default function Receptionist() {
 
   return (
     <div className="p-8 max-w-2xl">
-      <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2 text-xs text-amber-700 mb-6 font-medium">
+      <div className="bg-amber-950 border border-amber-800 rounded-lg px-4 py-2 text-xs text-amber-300 mb-6 font-medium">
         GUIDED DEMO — Not live AI. Responses are simulated, not AI-generated.
       </div>
 
-      <h1 className="text-2xl font-semibold text-stone-900 mb-1">Receptionist Intake</h1>
-      <p className="text-stone-500 text-sm mb-8">Simulate a homeowner call from first contact to service request creation.</p>
+      <h1 className="text-2xl font-semibold text-slate-100 mb-1">Receptionist Intake</h1>
+      <p className="text-slate-400 text-sm mb-8">Simulate a homeowner call from first contact to service request creation.</p>
 
       {isMainFlow && <StepIndicator current={step} steps={MAIN_STEPS} />}
 
       {/* STEP: Welcome */}
       {step === 'welcome' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Thank you for calling Moda Management.</h2>
-          <p className="text-stone-600 text-sm mb-6">Is this caller an existing Moda member?</p>
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Thank you for calling Moda Management.</h2>
+          <p className="text-slate-300 text-sm mb-6">Is this caller an existing Moda member?</p>
           <div className="flex gap-3">
-            <button onClick={() => { setIsMember(true); setStep('identify'); }} className="flex-1 py-3 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-900 transition-colors">
+            <button onClick={() => { setIsMember(true); setStep('identify'); }} className="flex-1 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 transition-colors">
               Yes — Existing member
             </button>
-            <button onClick={() => { setIsMember(false); setStep('unverified_collect'); }} className="flex-1 py-3 border border-stone-300 text-stone-700 text-sm font-medium rounded-lg hover:bg-stone-50 transition-colors">
+            <button onClick={() => { setIsMember(false); setStep('unverified_collect'); }} className="flex-1 py-3 border border-slate-600 text-slate-200 text-sm font-medium rounded-lg hover:bg-slate-950 transition-colors">
               No / Not sure
             </button>
           </div>
@@ -226,45 +226,45 @@ export default function Receptionist() {
 
       {/* STEP: Identify */}
       {step === 'identify' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Member Lookup</h2>
-          <p className="text-stone-600 text-sm mb-4">Enter the caller's name or phone number to locate their account.</p>
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Member Lookup</h2>
+          <p className="text-slate-300 text-sm mb-4">Enter the caller's name or phone number to locate their account.</p>
           <div className="flex gap-3">
             <input
               value={lookupInput}
               onChange={(e) => setLookupInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
               placeholder="Name or phone..."
-              className="flex-1 text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+              className="flex-1 text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
             />
-            <button onClick={handleLookup} disabled={!lookupInput.trim()} className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 disabled:opacity-40 transition-colors flex items-center gap-1">
+            <button onClick={handleLookup} disabled={!lookupInput.trim()} className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 disabled:opacity-40 transition-colors flex items-center gap-1">
               Look up <ArrowRight size={14} />
             </button>
           </div>
-          <p className="text-xs text-stone-400 mt-3 italic">Try: "Claire", "Marcus", or a phone number. Caller ID alone does not verify identity.</p>
-          <button onClick={() => setStep('welcome')} className="text-xs text-stone-400 mt-4 hover:text-stone-600">Back</button>
+          <p className="text-xs text-slate-400 mt-3 italic">Try: "Claire", "Marcus", or a phone number. Caller ID alone does not verify identity.</p>
+          <button onClick={() => setStep('welcome')} className="text-xs text-slate-400 mt-4 hover:text-slate-300">Back</button>
         </div>
       )}
 
       {/* STEP: Verify */}
       {step === 'verify' && matchedHomeowner && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Identity Verification</h2>
-          <div className="bg-stone-50 rounded-lg p-4 mb-4 text-sm text-stone-600">
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Identity Verification</h2>
+          <div className="bg-slate-950 rounded-lg p-4 mb-4 text-sm text-slate-300">
             Account found for <strong>{matchedHomeowner.name}</strong>. Before we can share any account information, we need to verify the caller's identity.
           </div>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4 text-xs text-amber-700">
+          <div className="bg-amber-950 border border-amber-800 rounded-lg p-4 mb-4 text-xs text-amber-300">
             <strong>[DEMO]</strong> In production, this step would involve a verification question or code. For this simulation, click below to simulate a successful verification.
             <p className="mt-1 italic">Property history and account details are not visible until after this step.</p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => { setVerified(true); setSelectedPropertyId(matchedProperties[0]?.id ?? null); setStep('confirm_property'); }}
-              className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 transition-colors"
+              className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 transition-colors"
             >
               Simulate Verification [DEMO]
             </button>
-            <button onClick={() => setStep('unverified_collect')} className="text-sm text-stone-500 hover:text-stone-700 px-3">
+            <button onClick={() => setStep('unverified_collect')} className="text-sm text-slate-400 hover:text-slate-200 px-3">
               Verification failed — collect callback
             </button>
           </div>
@@ -273,46 +273,46 @@ export default function Receptionist() {
 
       {/* STEP: Confirm Property */}
       {step === 'confirm_property' && verified && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Confirm Property</h2>
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Confirm Property</h2>
           {matchedProperties.length === 1 ? (
             <>
-              <p className="text-stone-600 text-sm mb-4">Is this the property you're calling about?</p>
-              <div className="bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4">
-                <p className="font-medium text-stone-800">{matchedProperties[0].address.street}</p>
-                <p className="text-stone-500 text-sm">{matchedProperties[0].address.city}, {matchedProperties[0].address.state} {matchedProperties[0].address.zip}</p>
+              <p className="text-slate-300 text-sm mb-4">Is this the property you're calling about?</p>
+              <div className="bg-slate-950 border border-slate-700 rounded-lg p-4 mb-4">
+                <p className="font-medium text-slate-100">{matchedProperties[0].address.street}</p>
+                <p className="text-slate-400 text-sm">{matchedProperties[0].address.city}, {matchedProperties[0].address.state} {matchedProperties[0].address.zip}</p>
               </div>
               <div className="flex gap-3">
                 <button
                   onClick={() => { setSelectedPropertyId(matchedProperties[0].id); setStep('capture_issue'); }}
-                  className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 transition-colors"
+                  className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 transition-colors"
                 >
                   Yes, this property
                 </button>
-                <button onClick={() => setStep('unverified_collect')} className="text-sm text-stone-500 hover:text-stone-700 px-3">
+                <button onClick={() => setStep('unverified_collect')} className="text-sm text-slate-400 hover:text-slate-200 px-3">
                   Different address — take as inquiry
                 </button>
               </div>
             </>
           ) : (
             <>
-              <p className="text-stone-600 text-sm mb-4">Which property is this about?</p>
+              <p className="text-slate-300 text-sm mb-4">Which property is this about?</p>
               <div className="space-y-2 mb-4">
                 {matchedProperties.map((p) => (
                   <button
                     key={p.id}
                     onClick={() => setSelectedPropertyId(p.id)}
-                    className={clsx('w-full text-left border rounded-lg p-3 transition-colors', selectedPropertyId === p.id ? 'border-stone-800 bg-stone-50' : 'border-stone-200 hover:bg-stone-50')}
+                    className={clsx('w-full text-left border rounded-lg p-3 transition-colors', selectedPropertyId === p.id ? 'border-stone-800 bg-slate-950' : 'border-slate-700 hover:bg-slate-950')}
                   >
-                    <p className="text-sm font-medium text-stone-800">{p.address.street}</p>
-                    <p className="text-xs text-stone-500">{p.address.city}, {p.address.state} {p.address.zip}</p>
+                    <p className="text-sm font-medium text-slate-100">{p.address.street}</p>
+                    <p className="text-xs text-slate-400">{p.address.city}, {p.address.state} {p.address.zip}</p>
                   </button>
                 ))}
               </div>
               <button
                 onClick={() => setStep('capture_issue')}
                 disabled={!selectedPropertyId}
-                className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 disabled:opacity-40 transition-colors"
+                className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 disabled:opacity-40 transition-colors"
               >
                 Continue <ArrowRight size={14} className="inline ml-1" />
               </button>
@@ -323,18 +323,18 @@ export default function Receptionist() {
 
       {/* STEP: Capture Issue */}
       {step === 'capture_issue' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Describe the Issue</h2>
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Describe the Issue</h2>
           {selectedProperty && (
-            <p className="text-xs text-stone-400 mb-4">Property: {selectedProperty.address.street}</p>
+            <p className="text-xs text-slate-400 mb-4">Property: {selectedProperty.address.street}</p>
           )}
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-medium text-stone-600 block mb-1">Category</label>
+              <label className="text-xs font-medium text-slate-300 block mb-1">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ServiceCategory)}
-                className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+                className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
               >
                 {Object.entries(CATEGORY_LABELS).map(([k, v]) => (
                   <option key={k} value={k}>{v}</option>
@@ -342,13 +342,13 @@ export default function Receptionist() {
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-stone-600 block mb-1">Issue description</label>
+              <label className="text-xs font-medium text-slate-300 block mb-1">Issue description</label>
               <textarea
                 value={issueDescription}
                 onChange={(e) => setIssueDescription(e.target.value)}
                 rows={4}
                 placeholder="Describe what the homeowner is experiencing..."
-                className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+                className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
               />
             </div>
           </div>
@@ -356,7 +356,7 @@ export default function Receptionist() {
             <button
               onClick={() => { setFollowupAnswers(new Array(getFollowups(category).length).fill('')); setStep('followup'); }}
               disabled={!issueDescription.trim()}
-              className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 disabled:opacity-40 transition-colors"
+              className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 disabled:opacity-40 transition-colors"
             >
               Continue <ArrowRight size={14} className="inline ml-1" />
             </button>
@@ -366,13 +366,13 @@ export default function Receptionist() {
 
       {/* STEP: Follow-up Questions */}
       {step === 'followup' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">A few follow-up questions</h2>
-          <p className="text-stone-500 text-sm mb-4">Category: {CATEGORY_LABELS[category]}</p>
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">A few follow-up questions</h2>
+          <p className="text-slate-400 text-sm mb-4">Category: {CATEGORY_LABELS[category]}</p>
           <div className="space-y-4">
             {followupQuestions.map((q, i) => (
               <div key={i}>
-                <label className="text-xs font-medium text-stone-600 block mb-1">{q}</label>
+                <label className="text-xs font-medium text-slate-300 block mb-1">{q}</label>
                 <input
                   value={followupAnswers[i] ?? ''}
                   onChange={(e) => {
@@ -380,7 +380,7 @@ export default function Receptionist() {
                     updated[i] = e.target.value;
                     setFollowupAnswers(updated);
                   }}
-                  className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+                  className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
                   placeholder="Homeowner's response..."
                 />
               </div>
@@ -388,7 +388,7 @@ export default function Receptionist() {
           </div>
           <button
             onClick={handleAssessUrgency}
-            className="mt-5 px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 transition-colors"
+            className="mt-5 px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 transition-colors"
           >
             Assess Urgency <ArrowRight size={14} className="inline ml-1" />
           </button>
@@ -399,18 +399,18 @@ export default function Receptionist() {
       {step === 'urgency_assessment' && urgencyResult && (
         <div className="space-y-4">
           {urgencyResult.level === 'immediate_danger' ? (
-            <div className="bg-red-50 border border-red-300 rounded-xl p-6">
+            <div className="bg-red-950 border border-red-300 rounded-xl p-6">
               <div className="flex items-center gap-3 mb-3">
-                <AlertTriangle size={24} className="text-red-600" />
-                <h2 className="text-lg font-bold text-red-800">Immediate Danger Reported</h2>
+                <AlertTriangle size={24} className="text-red-300" />
+                <h2 className="text-lg font-bold text-red-300">Immediate Danger Reported</h2>
               </div>
-              <p className="text-red-700 font-medium mb-3">This report indicates a possible life safety hazard.</p>
-              <div className="bg-red-100 rounded-lg p-4 mb-4">
-                <p className="text-red-800 text-sm font-semibold mb-1">Emergency Instructions:</p>
-                <p className="text-red-700 text-sm">{urgencyResult.emergencyInstructions}</p>
+              <p className="text-red-300 font-medium mb-3">This report indicates a possible life safety hazard.</p>
+              <div className="bg-red-950 rounded-lg p-4 mb-4">
+                <p className="text-red-300 text-sm font-semibold mb-1">Emergency Instructions:</p>
+                <p className="text-red-300 text-sm">{urgencyResult.emergencyInstructions}</p>
               </div>
-              <p className="text-red-600 text-sm font-medium mb-4">Moda does not provide emergency dispatch. Direct the caller to the appropriate emergency service immediately.</p>
-              <div className="bg-white rounded-lg p-3 text-xs text-stone-500 mb-4">
+              <p className="text-red-300 text-sm font-medium mb-4">Moda does not provide emergency dispatch. Direct the caller to the appropriate emergency service immediately.</p>
+              <div className="bg-slate-900 rounded-lg p-3 text-xs text-slate-400 mb-4">
                 Urgency rationale: {urgencyResult.reason}
               </div>
               <button onClick={() => setStep('review')} className="px-4 py-2.5 bg-red-700 text-white text-sm rounded-lg hover:bg-red-800 transition-colors">
@@ -418,18 +418,18 @@ export default function Receptionist() {
               </button>
             </div>
           ) : (
-            <div className="bg-white border border-stone-200 rounded-xl p-6">
-              <h2 className="text-lg font-medium text-stone-800 mb-3">Urgency Assessment</h2>
+            <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+              <h2 className="text-lg font-medium text-slate-100 mb-3">Urgency Assessment</h2>
               <div className={clsx(
                 'rounded-lg p-4 mb-4',
-                urgencyResult.level === 'urgent' ? 'bg-orange-50 border border-orange-200' : 'bg-stone-50 border border-stone-200'
+                urgencyResult.level === 'urgent' ? 'bg-orange-950 border border-orange-800' : 'bg-slate-950 border border-slate-700'
               )}>
-                <p className={clsx('font-semibold mb-1', urgencyResult.level === 'urgent' ? 'text-orange-800' : 'text-stone-700')}>
+                <p className={clsx('font-semibold mb-1', urgencyResult.level === 'urgent' ? 'text-orange-300' : 'text-slate-200')}>
                   {urgencyResult.level === 'urgent' ? 'Urgent' : 'Routine'}
                 </p>
-                <p className="text-sm text-stone-600">{urgencyResult.reason}</p>
+                <p className="text-sm text-slate-300">{urgencyResult.reason}</p>
               </div>
-              <button onClick={() => setStep('review')} className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 transition-colors">
+              <button onClick={() => setStep('review')} className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 transition-colors">
                 Continue to Review <ArrowRight size={14} className="inline ml-1" />
               </button>
             </div>
@@ -439,34 +439,34 @@ export default function Receptionist() {
 
       {/* STEP: Review & Create */}
       {step === 'review' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-4">Review & Create Request</h2>
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-4">Review & Create Request</h2>
           <div className="space-y-3 mb-6">
-            <div className="bg-stone-50 rounded-lg p-3 text-sm">
-              <p className="text-xs text-stone-400 mb-0.5">Property</p>
-              <p className="text-stone-700">{selectedProperty ? `${selectedProperty.address.street}, ${selectedProperty.address.city}` : '—'}</p>
+            <div className="bg-slate-950 rounded-lg p-3 text-sm">
+              <p className="text-xs text-slate-400 mb-0.5">Property</p>
+              <p className="text-slate-200">{selectedProperty ? `${selectedProperty.address.street}, ${selectedProperty.address.city}` : '—'}</p>
             </div>
-            <div className="bg-stone-50 rounded-lg p-3 text-sm">
-              <p className="text-xs text-stone-400 mb-0.5">Issue</p>
-              <p className="text-stone-700">{issueDescription}</p>
+            <div className="bg-slate-950 rounded-lg p-3 text-sm">
+              <p className="text-xs text-slate-400 mb-0.5">Issue</p>
+              <p className="text-slate-200">{issueDescription}</p>
             </div>
-            <div className="bg-stone-50 rounded-lg p-3 text-sm">
-              <p className="text-xs text-stone-400 mb-0.5">Category</p>
-              <p className="text-stone-700">{CATEGORY_LABELS[category]}</p>
+            <div className="bg-slate-950 rounded-lg p-3 text-sm">
+              <p className="text-xs text-slate-400 mb-0.5">Category</p>
+              <p className="text-slate-200">{CATEGORY_LABELS[category]}</p>
             </div>
-            <div className="bg-stone-50 rounded-lg p-3 text-sm">
-              <p className="text-xs text-stone-400 mb-0.5">Urgency</p>
-              <p className={clsx('font-medium', urgencyResult?.level === 'immediate_danger' ? 'text-red-700' : urgencyResult?.level === 'urgent' ? 'text-orange-700' : 'text-stone-700')}>
+            <div className="bg-slate-950 rounded-lg p-3 text-sm">
+              <p className="text-xs text-slate-400 mb-0.5">Urgency</p>
+              <p className={clsx('font-medium', urgencyResult?.level === 'immediate_danger' ? 'text-red-300' : urgencyResult?.level === 'urgent' ? 'text-orange-300' : 'text-slate-200')}>
                 {urgencyResult?.level === 'immediate_danger' ? 'Immediate Danger' : urgencyResult?.level === 'urgent' ? 'Urgent' : 'Routine'}
               </p>
             </div>
           </div>
-          <div className="bg-stone-50 border border-stone-200 rounded-lg p-3 text-xs text-stone-500 mb-4">
+          <div className="bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs text-slate-400 mb-4">
             A Moda coordinator will follow up within 24 hours. This is not a promise to resolve the issue within 24 hours.
           </div>
           <button
             onClick={handleCreateRequest}
-            className="w-full py-3 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-900 transition-colors"
+            className="w-full py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 transition-colors"
           >
             Create Service Request
           </button>
@@ -475,25 +475,25 @@ export default function Receptionist() {
 
       {/* STEP: Done */}
       {step === 'done' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <CheckCircle size={24} className="text-green-600" />
-            <h2 className="text-lg font-medium text-stone-800">Request Created</h2>
+            <CheckCircle size={24} className="text-green-300" />
+            <h2 className="text-lg font-medium text-slate-100">Request Created</h2>
           </div>
-          <div className="bg-stone-50 rounded-lg p-4 mb-4">
-            <p className="text-xs text-stone-400 mb-0.5">Reference number</p>
-            <p className="font-mono text-lg font-semibold text-stone-800">{createdRefNumber}</p>
+          <div className="bg-slate-950 rounded-lg p-4 mb-4">
+            <p className="text-xs text-slate-400 mb-0.5">Reference number</p>
+            <p className="font-mono text-lg font-semibold text-slate-100">{createdRefNumber}</p>
           </div>
-          <p className="text-stone-600 text-sm mb-2">A Moda coordinator will follow up within 24 hours.</p>
-          <p className="text-xs text-stone-400 mb-6 italic">This does not mean the issue will be resolved within 24 hours. The 24-hour window applies to a human response, not resolution.</p>
+          <p className="text-slate-300 text-sm mb-2">A Moda coordinator will follow up within 24 hours.</p>
+          <p className="text-xs text-slate-400 mb-6 italic">This does not mean the issue will be resolved within 24 hours. The 24-hour window applies to a human response, not resolution.</p>
           <div className="flex gap-3">
             <button
               onClick={() => createdRequestId && navigate(`/requests/${createdRequestId}`)}
-              className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 transition-colors"
+              className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 transition-colors"
             >
               View Request
             </button>
-            <button onClick={reset} className="px-4 py-2.5 border border-stone-200 text-stone-600 text-sm rounded-lg hover:bg-stone-50 transition-colors">
+            <button onClick={reset} className="px-4 py-2.5 border border-slate-700 text-slate-300 text-sm rounded-lg hover:bg-slate-950 transition-colors">
               New Intake
             </button>
           </div>
@@ -502,19 +502,19 @@ export default function Receptionist() {
 
       {/* UNVERIFIED PATH: Collect callback */}
       {step === 'unverified_collect' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Collect Callback Information</h2>
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mb-4 text-xs text-orange-700">
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Collect Callback Information</h2>
+          <div className="bg-orange-950 border border-orange-800 rounded-lg p-3 mb-4 text-xs text-orange-300">
             Caller identity not confirmed or property not matched. Collecting inquiry details only. Do not disclose any account information.
           </div>
           <div className="space-y-3 mb-4">
-            <input value={callbackName} onChange={(e) => setCallbackName(e.target.value)} placeholder="Caller's name" className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300" />
-            <input value={callbackPhone} onChange={(e) => setCallbackPhone(e.target.value)} placeholder="Callback phone number" className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300" />
+            <input value={callbackName} onChange={(e) => setCallbackName(e.target.value)} placeholder="Caller's name" className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300" />
+            <input value={callbackPhone} onChange={(e) => setCallbackPhone(e.target.value)} placeholder="Callback phone number" className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300" />
           </div>
           <button
             onClick={() => setStep('unverified_issue')}
             disabled={!callbackName.trim() || !callbackPhone.trim()}
-            className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 disabled:opacity-40 transition-colors"
+            className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 disabled:opacity-40 transition-colors"
           >
             Continue <ArrowRight size={14} className="inline ml-1" />
           </button>
@@ -523,16 +523,16 @@ export default function Receptionist() {
 
       {/* UNVERIFIED PATH: Capture issue */}
       {step === 'unverified_issue' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
-          <h2 className="text-lg font-medium text-stone-800 mb-2">Describe the Issue</h2>
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mb-4 text-xs text-orange-700">
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+          <h2 className="text-lg font-medium text-slate-100 mb-2">Describe the Issue</h2>
+          <div className="bg-orange-950 border border-orange-800 rounded-lg p-3 mb-4 text-xs text-orange-300">
             Unverified inquiry. Urgency is still assessed for safety purposes.
           </div>
           <div className="space-y-3">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as ServiceCategory)}
-              className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+              className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
             >
               {Object.entries(CATEGORY_LABELS).map(([k, v]) => (
                 <option key={k} value={k}>{v}</option>
@@ -543,7 +543,7 @@ export default function Receptionist() {
               onChange={(e) => setIssueDescription(e.target.value)}
               rows={4}
               placeholder="Describe the issue..."
-              className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
+              className="w-full text-sm border border-slate-700 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-stone-300"
             />
           </div>
           <button
@@ -553,7 +553,7 @@ export default function Receptionist() {
               setStep('unverified_urgency');
             }}
             disabled={!issueDescription.trim()}
-            className="mt-4 px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 disabled:opacity-40 transition-colors"
+            className="mt-4 px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 disabled:opacity-40 transition-colors"
           >
             Assess & Continue <ArrowRight size={14} className="inline ml-1" />
           </button>
@@ -564,27 +564,27 @@ export default function Receptionist() {
       {step === 'unverified_urgency' && urgencyResult && (
         <div className="space-y-4">
           {urgencyResult.level === 'immediate_danger' && (
-            <div className="bg-red-50 border border-red-300 rounded-xl p-6">
+            <div className="bg-red-950 border border-red-300 rounded-xl p-6">
               <div className="flex items-center gap-3 mb-3">
-                <AlertTriangle size={24} className="text-red-600" />
-                <h2 className="text-lg font-bold text-red-800">Immediate Danger Reported</h2>
+                <AlertTriangle size={24} className="text-red-300" />
+                <h2 className="text-lg font-bold text-red-300">Immediate Danger Reported</h2>
               </div>
-              <div className="bg-red-100 rounded-lg p-4 mb-4">
-                <p className="text-red-800 text-sm font-semibold mb-1">Emergency Instructions:</p>
-                <p className="text-red-700 text-sm">{urgencyResult.emergencyInstructions}</p>
+              <div className="bg-red-950 rounded-lg p-4 mb-4">
+                <p className="text-red-300 text-sm font-semibold mb-1">Emergency Instructions:</p>
+                <p className="text-red-300 text-sm">{urgencyResult.emergencyInstructions}</p>
               </div>
-              <p className="text-red-600 text-sm font-medium mb-4">Moda does not provide emergency dispatch.</p>
+              <p className="text-red-300 text-sm font-medium mb-4">Moda does not provide emergency dispatch.</p>
             </div>
           )}
-          <div className="bg-white border border-stone-200 rounded-xl p-6">
-            <div className={clsx('rounded-lg p-4 mb-4', urgencyResult.level === 'immediate_danger' ? 'bg-red-50 border border-red-200' : urgencyResult.level === 'urgent' ? 'bg-orange-50 border border-orange-200' : 'bg-stone-50 border border-stone-200')}>
-              <p className="text-sm font-medium text-stone-700 mb-1">Urgency: {urgencyResult.level === 'immediate_danger' ? 'Immediate Danger' : urgencyResult.level === 'urgent' ? 'Urgent' : 'Routine'}</p>
-              <p className="text-xs text-stone-500">{urgencyResult.reason}</p>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+            <div className={clsx('rounded-lg p-4 mb-4', urgencyResult.level === 'immediate_danger' ? 'bg-red-950 border border-red-800' : urgencyResult.level === 'urgent' ? 'bg-orange-950 border border-orange-800' : 'bg-slate-950 border border-slate-700')}>
+              <p className="text-sm font-medium text-slate-200 mb-1">Urgency: {urgencyResult.level === 'immediate_danger' ? 'Immediate Danger' : urgencyResult.level === 'urgent' ? 'Urgent' : 'Routine'}</p>
+              <p className="text-xs text-slate-400">{urgencyResult.reason}</p>
             </div>
-            <p className="text-stone-600 text-sm mb-4">
+            <p className="text-slate-300 text-sm mb-4">
               We'll create an inquiry and have a coordinator call back at <strong>{callbackPhone}</strong>. No account information will be shared until identity is confirmed.
             </p>
-            <button onClick={handleCreateUnverifiedRequest} className="w-full py-3 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-900 transition-colors">
+            <button onClick={handleCreateUnverifiedRequest} className="w-full py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 transition-colors">
               Create Unverified Inquiry
             </button>
           </div>
@@ -593,22 +593,22 @@ export default function Receptionist() {
 
       {/* UNVERIFIED PATH: Done */}
       {step === 'unverified_done' && (
-        <div className="bg-white border border-stone-200 rounded-xl p-6">
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
           <div className="flex items-center gap-3 mb-4">
-            <CheckCircle size={24} className="text-green-600" />
-            <h2 className="text-lg font-medium text-stone-800">Inquiry Recorded</h2>
+            <CheckCircle size={24} className="text-green-300" />
+            <h2 className="text-lg font-medium text-slate-100">Inquiry Recorded</h2>
           </div>
-          <div className="bg-stone-50 rounded-lg p-4 mb-4">
-            <p className="text-xs text-stone-400 mb-0.5">Reference</p>
-            <p className="font-mono text-lg font-semibold text-stone-800">{createdRefNumber}</p>
+          <div className="bg-slate-950 rounded-lg p-4 mb-4">
+            <p className="text-xs text-slate-400 mb-0.5">Reference</p>
+            <p className="font-mono text-lg font-semibold text-slate-100">{createdRefNumber}</p>
           </div>
-          <p className="text-stone-600 text-sm mb-2">A coordinator will call back at {callbackPhone}.</p>
-          <p className="text-xs text-stone-400 mb-6 italic">This inquiry requires human review before any account information is shared. Routed for coordinator follow-up.</p>
+          <p className="text-slate-300 text-sm mb-2">A coordinator will call back at {callbackPhone}.</p>
+          <p className="text-xs text-slate-400 mb-6 italic">This inquiry requires human review before any account information is shared. Routed for coordinator follow-up.</p>
           <div className="flex gap-3">
-            <button onClick={() => createdRequestId && navigate(`/requests/${createdRequestId}`)} className="px-4 py-2.5 bg-stone-800 text-white text-sm rounded-lg hover:bg-stone-900 transition-colors">
+            <button onClick={() => createdRequestId && navigate(`/requests/${createdRequestId}`)} className="px-4 py-2.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-500 transition-colors">
               View Inquiry
             </button>
-            <button onClick={reset} className="px-4 py-2.5 border border-stone-200 text-stone-600 text-sm rounded-lg hover:bg-stone-50 transition-colors">
+            <button onClick={reset} className="px-4 py-2.5 border border-slate-700 text-slate-300 text-sm rounded-lg hover:bg-slate-950 transition-colors">
               New Intake
             </button>
           </div>

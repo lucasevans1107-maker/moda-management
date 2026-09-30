@@ -64,6 +64,7 @@ export interface Homeowner {
   phone: string;
   preferredChannel: PreferredChannel;
   verificationStatus: VerificationStatus;
+  lastContactAt?: string; // Explicitly recorded client contact
   memberSince: string; // ISO date
   notes?: string;
 }
