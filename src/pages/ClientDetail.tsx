@@ -1,30 +1,34 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone } from 'lucide-react';
 import { useStore } from '../store';
-import { clientContext, membershipLength } from '../lib/crm';
+import { clientRequests, lastContact, upcomingServices, tenure } from '../lib/crm';
 import { formatDate, formatDateTime } from '../lib/format';
-import { CATEGORY_LABELS } from '../types';
-import StatusBadge from '../components/StatusBadge';
-import MembershipBadge from '../components/MembershipBadge';
+import { CATEGORY_LABELS, TRADE_LABELS } from '../types';
 import CommunicationLog from '../components/CommunicationLog';
+import StatusBadge from '../components/StatusBadge';
 
 export default function ClientDetail() {
   const { id } = useParams();
-  const state = useStore();
-  const h = state.homeowners.find(h => h.id === id);
-  if (!h) return <div className="p-8"><h1 className="text-xl mb-4">Client not found</h1><Link to="/clients" className="text-accent">Back to clients</Link></div>;
-  const c = clientContext(state, h.id);
-  return <div className="p-8 max-w-7xl mx-auto">
-    <Link to="/clients" className="inline-flex items-center gap-2 text-sm text-muted mb-6"><ArrowLeft size={16} />All clients</Link>
-    <div className="mb-8"><p className="text-xs text-accent uppercase tracking-[0.2em] mb-2">Client profile</p><h1 className="text-3xl font-semibold">{h.name}</h1><div className="flex flex-wrap gap-5 mt-4 text-sm text-muted"><a href={`mailto:${h.email}`} className="flex items-center gap-2"><Mail size={15} />{h.email}</a><a href={`tel:${h.phone.replace(/[^+\d]/g, '')}`} className="flex items-center gap-2"><Phone size={15} />{h.phone}</a><span>Preferred: {h.preferredChannel}</span></div></div>
-    <div className="grid sm:grid-cols-3 gap-4 mb-7">{[
-      ['With Moda', membershipLength(h.memberSince), `Member since ${formatDate(h.memberSince)}`],
-      ['Last contact', c.lastContact ? formatDateTime(c.lastContact.occurredAt) : 'No contact recorded', c.lastContact ? `${c.lastContact.channel === 'text' ? 'SMS' : c.lastContact.channel} · ${c.lastContact.direction}` : 'Client communications will appear here'],
-      ['Next confirmed service', c.next ? formatDateTime(c.next.appointmentConfirmation!.scheduledStart) : 'Not scheduled', c.next ? CATEGORY_LABELS[c.next.category] : 'Only confirmed upcoming appointments appear'],
-    ].map(([label, value, sub]) => <div key={label} className="p-5 rounded-xl bg-surface border border-line"><p className="text-xs uppercase tracking-wider text-muted">{label}</p><p className="mt-3 text-lg font-semibold">{value}</p><p className="text-xs text-muted mt-2">{sub}</p></div>)}</div>
-    <div className="grid lg:grid-cols-2 gap-6 mb-6"><section className="bg-surface border border-line rounded-xl p-5"><h2 className="font-semibold mb-4">Properties</h2>{c.properties.map(p => <Link to={`/properties/${p.id}`} key={p.id} className="flex flex-wrap items-center justify-between gap-3 border-t border-line py-4 text-sm hover:text-accent"><span>{p.address.street}<span className="block text-xs text-muted mt-1">{p.address.city}, {p.address.state} {p.address.zip}</span></span><MembershipBadge tier={p.membership} /></Link>)}{!c.properties.length && <p className="text-sm text-muted">No properties linked.</p>}{h.notes && <p className="text-sm text-muted border-t border-line pt-4 mt-2">{h.notes}</p>}</section>
-    <section className="bg-surface border border-line rounded-xl p-5"><h2 className="font-semibold mb-1">Service providers</h2><p className="text-xs text-muted mb-4">Preferred providers and vendors assigned to this client’s requests.</p>{c.providers.map(v => <div key={v.id} className="border-t border-line py-4"><Link to="/vendors" className="font-medium text-sm hover:text-accent">{v.company}</Link><p className="text-xs text-muted mt-1">{v.contactName} · {v.contactPhone}</p><p className="text-xs text-accent mt-2">{c.properties.some(p => p.preferredVendorIds.includes(v.id)) ? 'Preferred provider' : 'Assigned on a service request'} · {v.status}</p></div>)}{!c.providers.length && <p className="text-sm text-muted">No providers assigned.</p>}</section></div>
-    <section className="bg-surface border border-line rounded-xl mb-6"><h2 className="p-5 font-semibold border-b border-line">Service history <span className="text-muted font-normal">({c.requests.length})</span></h2><div className="divide-y divide-line">{[...c.requests].sort((a,b) => b.createdAt.localeCompare(a.createdAt)).map(r => <Link key={r.id} to={`/requests/${r.id}`} className="p-5 flex flex-wrap items-center justify-between gap-3 hover:bg-raised"><div><p className="text-sm font-medium">{CATEGORY_LABELS[r.category]} · {r.referenceNumber}</p><p className="text-xs text-muted mt-1">{formatDateTime(r.createdAt)}</p></div><StatusBadge status={r.status} /></Link>)}{!c.requests.length && <p className="p-5 text-muted text-sm">No services recorded.</p>}</div></section>
-    <section className="bg-surface border border-line rounded-xl"><h2 className="p-5 font-semibold border-b border-line">Contact history</h2><CommunicationLog entries={c.communications} /></section>
+  const { homeowners, properties, vendors, requests, recordClientContact, demoRole, communications } = useStore();
+  const client = homeowners.find((h) => h.id === id);
+  if (!client) return <div className="crm-page"><h1>Client not found</h1><Link className="crm-link" to="/clients">Back to clients</Link></div>;
+  const homes = properties.filter((p) => p.homeownerId === id);
+  const reqs = clientRequests(client.id, requests);
+  const contact = lastContact(client, reqs, communications);
+  const next = upcomingServices(reqs)[0];
+  const preferred = new Set(homes.flatMap((p) => p.preferredVendorIds));
+  const assigned = new Set(reqs.map((r) => r.vendorAssignment?.vendorId).filter(Boolean));
+  const providers = vendors.filter((v) => preferred.has(v.id) || assigned.has(v.id));
+  return <div className="crm-page">
+    <Link className="crm-link text-sm" to="/clients">← All clients</Link>
+    <div className="crm-header mt-6"><div><p className="text-xs text-indigo-300 uppercase tracking-widest mb-2">Client profile</p><h1>{client.name}</h1><p className="crm-muted">Member since {formatDate(client.memberSince)} · {tenure(client.memberSince)}</p></div>{demoRole === 'coordinator' && <button className="crm-button" onClick={() => recordClientContact(client.id)}>Record contact now</button>}</div>
+    <div className="crm-stats">{[['Last contact', contact ? formatDateTime(contact) : 'Not recorded'], ['Next service', next ? formatDateTime(next.appointmentConfirmation!.scheduledStart) : 'Not scheduled'], ['Time with Moda', tenure(client.memberSince)], ['Total services', String(reqs.filter((r) => r.status === 'completed').length)]].map(([label, value]) => <div className="crm-panel" key={label}><p className="crm-muted mb-3">{label}</p><p className="font-semibold">{value}</p></div>)}</div>
+    <div className="crm-grid">
+      <section className="crm-panel"><h2>Contact & membership</h2><dl className="space-y-4 text-sm"><div><dt className="crm-muted">Email</dt><dd><a className="crm-link" href={`mailto:${client.email}`}>{client.email}</a></dd></div><div><dt className="crm-muted">Phone</dt><dd><a className="crm-link" href={`tel:${client.phone}`}>{client.phone}</a></dd></div><div><dt className="crm-muted">Preferred channel</dt><dd className="capitalize">{client.preferredChannel}</dd></div><div><dt className="crm-muted">Client notes</dt><dd>{client.notes || 'No notes recorded.'}</dd></div></dl></section>
+      <section className="crm-panel"><h2>Service providers <span className="text-slate-400">({providers.length})</span></h2>{providers.map((v) => <div className="crm-row" key={v.id}><p className="font-medium">{v.company}</p><p className="crm-muted mt-1">{v.trades.map((t) => TRADE_LABELS[t]).join(' · ')}</p><p className="text-xs text-indigo-300 mt-2">{[preferred.has(v.id) && 'Preferred provider', assigned.has(v.id) && 'Assigned to service'].filter(Boolean).join(' · ')}</p><a className="crm-link text-sm" href={`tel:${v.contactPhone}`}>{v.contactPhone}</a></div>)}{!providers.length && <p className="crm-muted">No providers assigned yet.</p>}</section>
+      <section className="crm-panel"><h2>Properties</h2>{homes.map((p) => <div className="crm-row" key={p.id}><Link className="crm-link" to={`/properties/${p.id}`}>{p.address.street}</Link><p className="crm-muted">{p.address.city}, {p.address.state} {p.address.zip}</p><p className="text-sm mt-2 capitalize">{p.membership} membership</p></div>)}{!homes.length && <p className="crm-muted">No properties linked.</p>}</section>
+      <section className="crm-panel"><h2>Next confirmed service</h2>{next ? <><Link className="crm-link" to={`/requests/${next.id}`}>{CATEGORY_LABELS[next.category]} · {next.referenceNumber}</Link><p className="mt-3">{formatDateTime(next.appointmentConfirmation!.scheduledStart)}</p><p className="crm-muted mt-2">{next.issueDescription}</p></> : <p className="crm-muted">No upcoming confirmed appointment. Pending scheduling requests appear in the service history below.</p>}</section>
+    </div>
+    <section className="crm-panel mt-5"><h2>Service history</h2>{[...reqs].sort((a,b) => Date.parse(b.createdAt)-Date.parse(a.createdAt)).map((r) => <div className="crm-row flex justify-between gap-4" key={r.id}><div><Link className="crm-link" to={`/requests/${r.id}`}>{r.referenceNumber} · {CATEGORY_LABELS[r.category]}</Link><p className="crm-muted mt-1">{r.issueDescription}</p><p className="text-xs text-slate-400 mt-2">Opened {formatDateTime(r.createdAt)}</p></div><div className="shrink-0"><StatusBadge status={r.status}/></div></div>)}{!reqs.length && <p className="crm-muted">No service history yet.</p>}</section>
+    <section className="crm-panel mt-5"><h2>Contact history</h2><CommunicationLog entries={communications.filter(c => c.homeownerId === client.id).sort((a,b) => b.occurredAt.localeCompare(a.occurredAt))} /></section>
   </div>;
 }

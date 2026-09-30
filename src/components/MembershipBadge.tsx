@@ -13,7 +13,7 @@ export default function MembershipBadge({ tier, className }: Props) {
         'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
         tier === 'premium'
           ? 'bg-amber-950 text-amber-300 border border-amber-800'
-          : 'bg-raised text-ink',
+          : 'bg-slate-800 text-slate-200',
         className
       )}
     >

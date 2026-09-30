@@ -3,7 +3,7 @@ import { URGENCY_LABELS } from '../types';
 import clsx from 'clsx';
 
 const URGENCY_CLASSES: Record<UrgencyLevel, string> = {
-  routine: 'bg-raised text-muted',
+  routine: 'bg-slate-800 text-slate-300',
   urgent: 'bg-orange-950 text-orange-300 border border-orange-800',
   immediate_danger: 'bg-red-950 text-red-300 font-semibold',
 };

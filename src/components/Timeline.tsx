@@ -6,7 +6,7 @@ const ROLE_DOT: Record<ActorRole, string> = {
   coordinator: 'bg-stone-600',
   homeowner: 'bg-blue-500',
   vendor: 'bg-green-500',
-  system: 'bg-line',
+  system: 'bg-stone-300',
   receptionist: 'bg-purple-500',
 };
 
@@ -20,7 +20,7 @@ export default function Timeline({ entries }: Props) {
   );
 
   if (sorted.length === 0) {
-    return <p className="text-muted text-sm italic">No activity recorded yet.</p>;
+    return <p className="text-slate-400 text-sm italic">No activity recorded yet.</p>;
   }
 
   return (
@@ -35,16 +35,16 @@ export default function Timeline({ entries }: Props) {
               )}
             />
             {i < sorted.length - 1 && (
-              <span className="w-px flex-1 bg-raised mt-1" />
+              <span className="w-px flex-1 bg-stone-200 mt-1" />
             )}
           </div>
           <div className="pb-4 min-w-0">
-            <p className="text-xs text-muted mb-0.5">{entry.actor}</p>
-            <p className="text-sm font-medium text-ink">{entry.action}</p>
+            <p className="text-xs text-slate-400 mb-0.5">{entry.actor}</p>
+            <p className="text-sm font-medium text-slate-100">{entry.action}</p>
             {entry.details && (
-              <p className="text-sm text-muted mt-0.5 whitespace-pre-line">{entry.details}</p>
+              <p className="text-sm text-slate-400 mt-0.5 whitespace-pre-line">{entry.details}</p>
             )}
-            <p className="text-xs text-muted mt-1">{formatDateTime(entry.timestamp)}</p>
+            <p className="text-xs text-slate-400 mt-1">{formatDateTime(entry.timestamp)}</p>
           </div>
         </li>
       ))}

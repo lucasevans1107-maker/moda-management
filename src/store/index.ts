@@ -27,6 +27,7 @@ function generateRefNumber(): string {
 }
 
 interface StoreActions {
+  recordClientContact: (id: string) => void;
   // Demo controls
   setDemoRole: (role: 'coordinator' | 'homeowner') => void;
   setDemoHomeownerId: (id: string | undefined) => void;
@@ -65,6 +66,7 @@ export const useStore = create<Store>()(
   persist(
     (set, get) => ({
       ...INITIAL_STATE,
+      recordClientContact: (id) => set((state) => ({ homeowners: state.homeowners.map((h) => h.id === id ? { ...h, lastContactAt: new Date().toISOString() } : h) })),
 
       setDemoRole: (role) => set({ demoRole: role }),
       setDemoHomeownerId: (id) => set({ demoHomeownerId: id }),
