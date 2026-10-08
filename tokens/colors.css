@@ -1,0 +1,93 @@
+/* Moda colour tokens.
+   Default theme = ESPRESSO (dark, warm brown). Neutral names are ROLES, not literal colours:
+   --ivory = page ground, --porcelain = card, --linen = sunken, --ink = primary foreground.
+   [data-theme="light"] restores the paper palette; it is also applied locally to inverse
+   surfaces (sidebar, footer, inverse cards, toasts) and to copy laid over photography. */
+:root, [data-theme="dark"] {
+  --ivory: #2A211B;   /* page */
+  --porcelain: #322820; /* card */
+  --linen: #3A2F26;   /* sunken */
+  --sand: #4A3D32;
+  --oat: #64574A;
+  --stone: #9C8F7F;
+  --taupe: #C2B5A3;
+  --umber: #DED2C1;
+  --ink: #F3ECE0;     /* primary foreground */
+  --white: #FFFFFF;
+  --night: #17120E;
+
+  --bronze-100: #3E2F22;
+  --bronze-200: #DFC9AC;
+  --bronze-300: #C6A47C;
+  --bronze-500: #A47C55;
+  --bronze-600: #86643F;
+  --bronze-700: #D4B48D;
+  --bronze-900: #EBD8BE;
+
+  --sage: #AFC0A2;   --sage-wash: #323A2C;
+  --ochre: #DDBA72;  --ochre-wash: #43362A;
+  --oxblood: #E5A196; --oxblood-wash: #472A24;
+  --slate: #AEC0CA;  --slate-wash: #2B343A;
+
+  --border-hairline: rgba(243,236,224,0.11);
+  --btn-primary-hover: var(--bronze-200);
+  --bg-page: var(--ivory);
+  --bg-raised: var(--porcelain);
+  --bg-sunken: var(--linen);
+  --bg-inverse: var(--night);
+  --surface-card: var(--porcelain);
+  --text-primary: var(--ink);
+  --text-secondary: var(--taupe);
+  --text-tertiary: var(--stone);
+  --text-inverse: var(--ivory);
+  --text-accent: var(--bronze-700);
+  --border-strong: var(--oat);
+  --border-inverse: rgba(247,243,236,0.22);
+  --accent: var(--bronze-500);
+  --accent-hover: var(--bronze-700);
+  --focus-ring: var(--bronze-300);
+}
+[data-theme="light"] {
+  --ivory: #F7F3EC;
+  --porcelain: #FBF9F5;
+  --linen: #EEE7DB;
+  --sand: #DDD1BE;
+  --oat: #C8BBA5;
+  --stone: #8F877B;
+  --taupe: #625B51;
+  --umber: #3B352F;
+  --ink: #1C1A17;
+  --white: #FFFFFF;
+  --night: #17120E;
+
+  --bronze-100: #F1E7DA;
+  --bronze-200: #DFC9AC;
+  --bronze-300: #C6A47C;
+  --bronze-500: #9C7550;
+  --bronze-600: #86643F;
+  --bronze-700: #74553A;
+  --bronze-900: #4A3626;
+
+  --sage: #5E6F55;   --sage-wash: #E6EAE0;
+  --ochre: #A9802F;  --ochre-wash: #F3EAD6;
+  --oxblood: #8A3A31; --oxblood-wash: #F2E1DD;
+  --slate: #4D5C66;  --slate-wash: #E3E8EA;
+
+  --border-hairline: #E3DACB;
+  --btn-primary-hover: #74553A;
+  --bg-page: var(--ivory);
+  --bg-raised: var(--porcelain);
+  --bg-sunken: var(--linen);
+  --bg-inverse: var(--night);
+  --surface-card: var(--porcelain);
+  --text-primary: var(--ink);
+  --text-secondary: var(--taupe);
+  --text-tertiary: var(--stone);
+  --text-inverse: var(--ivory);
+  --text-accent: var(--bronze-700);
+  --border-strong: var(--oat);
+  --border-inverse: rgba(247,243,236,0.22);
+  --accent: var(--bronze-500);
+  --accent-hover: var(--bronze-700);
+  --focus-ring: var(--bronze-300);
+}

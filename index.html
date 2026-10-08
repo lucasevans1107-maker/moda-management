@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Moda Console</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="ds-runtime.js"></script>
+<script src="data.js"></script>
+<style>@keyframes mrise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}} .mrise{animation:mrise 480ms cubic-bezier(.22,.61,.36,1) both}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="Today.jsx"></script>
+<script type="text/babel" src="Requests.jsx"></script>
+<script type="text/babel" src="Members.jsx"></script>
+<script type="text/babel" src="Walkthrough.jsx"></script>
+<script type="text/babel" src="Estimates.jsx"></script>
+<script type="text/babel" src="Conversations.jsx"></script>
+<script type="text/babel" src="Client.jsx"></script>
+<script type="text/babel">
+function App() {
+  const saved = JSON.parse(localStorage.getItem('moda-app-route') || '{"page":"today"}');
+  const [route, setRoute] = React.useState(saved);
+  const [data, setData] = React.useState(window.MODA_DATA);
+  const [t, setT] = React.useState(null);
+  const go = (page, id) => { const r = { page, id }; setRoute(r); localStorage.setItem('moda-app-route', JSON.stringify(r)); window.scrollTo(0, 0); };
+  const toast = (title, message) => { setT({ title, message, k: Date.now() }); setTimeout(() => setT(null), 3200); };
+  const P = { today: Today, ai: Conversations, requests: Requests, members: Members, member: MemberDetail, walkthrough: Walkthrough, estimates: Estimates }[route.page] || Today;
+  const counts = { ai: data.conversations.filter(c => c.status === 'Needs a human').length, requests: data.requests.filter(r => r.status === 'New').length, estimates: data.estimates.filter(e => e.status === 'Awaiting approval').length };
+  const { Toast, Tabs } = window.Moda;
+  const [view, setView] = React.useState(() => localStorage.getItem('moda-app-view') || 'staff');
+  const switchView = (v) => { setView(v); localStorage.setItem('moda-app-view', v); window.scrollTo(0, 0); };
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      {view === 'staff' ? <>
+        <Sidebar page={route.page} go={go} counts={counts} />
+        <main style={{ flex: 1, minWidth: 0 }}><div key={route.page + (route.id || '')} className="mrise"><P go={go} data={data} setData={setData} id={route.id} toast={toast} /></div></main>
+      </> : <main style={{ flex: 1, minWidth: 0 }}><ClientPortal data={data} setData={setData} toast={toast} /></main>}
+      <div style={{ position: 'fixed', left: 20, bottom: 20, zIndex: 150, background: 'var(--porcelain)', boxShadow: 'var(--shadow-float)' }}>
+        <Tabs variant="segmented" value={view} onChange={switchView} items={[{ id: 'staff', label: 'Staff console' }, { id: 'client', label: 'Member portal' }]} />
+      </div>
+      {t ? <div key={t.k} className="mrise" style={{ position: 'fixed', right: 32, bottom: 32, zIndex: 200 }}><Toast tone="success" title={t.title} message={t.message} onClose={() => setT(null)} /></div> : null}
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script></body></html>

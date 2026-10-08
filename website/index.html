@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moda Management — Website</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="ds-runtime.js"></script>
+<style>@keyframes mrise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}} .mrise{animation:mrise 640ms cubic-bezier(.22,.61,.36,1) both}</style>
+</head><body><div id="root"></div>
+<script type="text/babel" src="Chrome.jsx"></script>
+<script type="text/babel" src="Home.jsx"></script>
+<script type="text/babel" src="Membership.jsx"></script>
+<script type="text/babel" src="Services.jsx"></script>
+<script type="text/babel" src="Contact.jsx"></script>
+<script type="text/babel">
+function Site() {
+  const [page, setPage] = React.useState(() => localStorage.getItem('moda-site-page') || 'home');
+  const go = (p) => { setPage(p); localStorage.setItem('moda-site-page', p); window.scrollTo(0, 0); };
+  const P = { home: Home, membership: Membership, services: Services, contact: Contact }[page] || Home;
+  return <div key={page}><P go={go} /><SiteFooter go={go} /></div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Site />);
+</script></body></html>
